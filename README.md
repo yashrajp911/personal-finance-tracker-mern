@@ -57,9 +57,9 @@ personal-finance-tracker-mern/
 │   ├── routes/
 │   ├── controllers/
 │   └── seed.js
+│   └── .env
 ├── frontend/
 │   ├── src/
-│   └── .env
 ├── docker-compose.yml
 ├── README.md
 
