@@ -3,14 +3,6 @@
 A comprehensive **Personal Finance Tracker** built with the **MERN Stack** (MongoDB, Express, React, Node.js) to help users manage their income and expenses with detailed analytics and insights. This project includes secure authentication, data visualization, and is designed to be fully functional in a production environment.
 
 ---
-
-## 🚀 Live Demo
-
-- **Frontend**: [https://personal-finance-tracker-mern.vercel.app](https://personal-finance-tracker-mern.vercel.app)
-- **Backend**: [https://personal-finance-tracker-backend-rss2.onrender.com](https://personal-finance-tracker-backend-rss2.onrender.com)
-
----
-
 ## ✅ Features
 
 ### **Authentication**
@@ -57,9 +49,9 @@ personal-finance-tracker-mern/
 │   ├── routes/
 │   ├── controllers/
 │   └── seed.js
+│   └── .env
 ├── frontend/
 │   ├── src/
-│   └── .env
 ├── docker-compose.yml
 ├── README.md
 
@@ -96,7 +88,6 @@ Use the following test accounts or register your own.
 | Email                                             | Password   | Notes                |
 | ------------------------------------------------- | ---------- | -------------------- |
 | [testuser1@gmail.com](mailto:testuser1@gmail.com) | Test\@1234 | General test account |
-| [testuser2@gmail.com](mailto:testuser2@gmail.com) | Test\@5678 | Alternate profile    |
 
 You can register new accounts via the frontend as well.
 
