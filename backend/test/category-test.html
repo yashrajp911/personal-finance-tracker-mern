@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Category Management</title>
+    <style>
+        button {
+            margin-left: 5px;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Manage Categories</h1>
+
+    <form id="addCategoryForm">
+        <input type="text" name="name" placeholder="New Category Name" required />
+        <select name="type" required>
+            <option value="" disabled selected>Select Type</option>
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+        </select>
+        <button type="submit">Add Category</button>
+    </form>
+
+    <h2>Your Categories</h2>
+    <ul id="categoryList"></ul>
+
+    <h2>Edit Category</h2>
+    <form id="editCategoryForm" style="display:none;">
+        <input type="hidden" name="categoryId" />
+        <input type="text" name="name" placeholder="New Category Name" required />
+        <select name="type" required>
+            <option value="" disabled>Select Type</option>
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+        </select>
+        <button type="submit">Update Category</button>
+        <button type="button" id="cancelEditCategory">Cancel</button>
+    </form>
+
+    <pre id="categoryResponse"></pre>
+
+    <script>
+        const addCategoryForm = document.getElementById('addCategoryForm');
+        const editCategoryForm = document.getElementById('editCategoryForm');
+        const categoryList = document.getElementById('categoryList');
+        const categoryResponse = document.getElementById('categoryResponse');
+        const cancelEditBtn = document.getElementById('cancelEditCategory');
+
+        const apiBase = 'http://localhost:5000/api/categories';
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            alert('Please log in first');
+        }
+
+        async function fetchCategories() {
+            try {
+                const res = await fetch(apiBase, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                const categories = await res.json();
+                if (!res.ok) throw new Error(categories.message || 'Failed to fetch categories');
+
+                categoryList.innerHTML = '';
+                categories.forEach(cat => {
+                    const li = document.createElement('li');
+                    li.textContent = `${cat.name} (${cat.type}) `;
+
+                    const editBtn = document.createElement('button');
+                    editBtn.textContent = 'Edit';
+                    editBtn.onclick = () => startEditCategory(cat);
+
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.textContent = 'Delete';
+                    deleteBtn.onclick = () => deleteCategory(cat._id);
+
+                    li.appendChild(editBtn);
+                    li.appendChild(deleteBtn);
+                    categoryList.appendChild(li);
+                });
+            } catch (err) {
+                categoryResponse.textContent = 'Error: ' + err.message;
+            }
+        }
+
+        addCategoryForm.addEventListener('submit', async e => {
+            e.preventDefault();
+            const formData = new FormData(addCategoryForm);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                const res = await fetch(apiBase, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const json = await res.json();
+                if (!res.ok) throw new Error(json.message || 'Failed to add category');
+                categoryResponse.textContent = 'Category added: ' + JSON.stringify(json, null, 2);
+                addCategoryForm.reset();
+                fetchCategories();
+            } catch (err) {
+                categoryResponse.textContent = 'Error: ' + err.message;
+            }
+        });
+
+        function startEditCategory(category) {
+            editCategoryForm.style.display = 'block';
+            addCategoryForm.style.display = 'none';
+
+            editCategoryForm.categoryId.value = category._id;
+            editCategoryForm.name.value = category.name;
+            editCategoryForm.type.value = category.type;
+        }
+
+        cancelEditBtn.onclick = () => {
+            editCategoryForm.style.display = 'none';
+            addCategoryForm.style.display = 'block';
+            categoryResponse.textContent = '';
+        };
+
+        editCategoryForm.addEventListener('submit', async e => {
+            e.preventDefault();
+            const categoryId = editCategoryForm.categoryId.value;
+            const formData = new FormData(editCategoryForm);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                const res = await fetch(`${apiBase}/${categoryId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const json = await res.json();
+                if (!res.ok) throw new Error(json.message || 'Failed to update category');
+                categoryResponse.textContent = 'Category updated: ' + JSON.stringify(json, null, 2);
+                editCategoryForm.reset();
+                editCategoryForm.style.display = 'none';
+                addCategoryForm.style.display = 'block';
+                fetchCategories();
+            } catch (err) {
+                categoryResponse.textContent = 'Error: ' + err.message;
+            }
+        });
+
+        async function deleteCategory(id) {
+            if (!confirm('Are you sure you want to delete this category?')) return;
+
+            try {
+                const res = await fetch(`${apiBase}/${id}`, {
+                    method: 'DELETE',
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                const json = await res.json();
+                if (!res.ok) throw new Error(json.message || 'Failed to delete category');
+                categoryResponse.textContent = json.message;
+                fetchCategories();
+            } catch (err) {
+                categoryResponse.textContent = 'Error: ' + err.message;
+            }
+        }
+
+        fetchCategories();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>API Auth Test</title>
+</head>
+
+<body>
+    <h1>Register User</h1>
+    <form id="registerForm">
+        <input type="text" name="name" placeholder="Name" required><br><br>
+        <input type="email" name="email" placeholder="Email" required><br><br>
+        <input type="password" name="password" placeholder="Password" required><br><br>
+        <button type="submit">Register</button>
+    </form>
+
+    <h1>Login User</h1>
+    <form id="loginForm">
+        <input type="email" name="email" placeholder="Email" required><br><br>
+        <input type="password" name="password" placeholder="Password" required><br><br>
+        <button type="submit">Login</button>
+    </form>
+
+    <h2>Response</h2>
+    <pre id="responseBox"></pre>
+
+    <hr>
+
+    <h1>Call Protected /me Route</h1>
+    <form id="protectedForm">
+        <button type="submit">Call Protected</button>
+    </form>
+
+    <h2>Protected Route Response</h2>
+    <pre id="protectedResponse"></pre>
+
+    <hr>
+
+    <h1>Add Transaction</h1>
+    <form id="transactionForm">
+        <input type="number" name="amount" placeholder="Amount" required><br><br>
+        <input type="text" name="type" placeholder="Type (income/expense)" required><br><br>
+        <input type="text" name="category" placeholder="Category" required><br><br>
+        <input type="text" name="description" placeholder="Description"><br><br>
+        <input type="date" name="date" placeholder="Date"><br><br>
+        <button type="submit">Add Transaction</button>
+    </form>
+
+    <h1>All Transactions</h1>
+    <button id="getTransactions">Fetch Transactions</button>
+
+    <h2>Transactions Response</h2>
+    <pre id="transactionsOutput"></pre>
+
+    <hr>
+
+    <h1>Delete Transaction by ID</h1>
+    <form id="deleteTransactionForm">
+        <input type="text" name="transactionId" placeholder="Transaction ID" required><br><br>
+        <button type="submit">Delete Transaction</button>
+    </form>
+
+    <h2>Delete Response</h2>
+    <pre id="deleteResponse"></pre>
+
+    <hr>
+
+    <h1>Edit Transaction</h1>
+    <form id="editTransactionForm">
+        <input type="text" name="transactionId" placeholder="Transaction ID" required><br><br>
+        <input type="number" name="amount" placeholder="New Amount"><br><br>
+        <input type="text" name="type" placeholder="New Type (income/expense)"><br><br>
+        <input type="text" name="category" placeholder="New Category"><br><br>
+        <input type="text" name="description" placeholder="New Description"><br><br>
+        <input type="date" name="date" placeholder="New Date"><br><br>
+        <button type="submit">Update Transaction</button>
+    </form>
+
+    <h2>Edit Response</h2>
+    <pre id="editResponse"></pre>
+
+
+    <script>
+        const registerForm = document.getElementById('registerForm');
+        const loginForm = document.getElementById('loginForm');
+        const protectedForm = document.getElementById('protectedForm');
+        const transactionForm = document.getElementById('transactionForm');
+        const getTransactionsBtn = document.getElementById('getTransactions');
+        const deleteTransactionForm = document.getElementById('deleteTransactionForm');
+        const editTransactionForm = document.getElementById('editTransactionForm');
+
+        const responseBox = document.getElementById('responseBox');
+        const protectedResponse = document.getElementById('protectedResponse');
+        const transactionsOutput = document.getElementById('transactionsOutput');
+        const deleteResponse = document.getElementById('deleteResponse');
+        const editResponse = document.getElementById('editResponse');
+
+
+        const apiBase = 'http://localhost:5000/api/auth';
+        const protectedBase = 'http://localhost:5000/api/test';
+        const transactionsBase = 'http://localhost:5000/api/transactions';
+
+        // Register
+        registerForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const formData = new FormData(registerForm);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                const res = await fetch(`${apiBase}/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const json = await res.json();
+                responseBox.textContent = JSON.stringify(json, null, 2);
+            } catch (err) {
+                responseBox.textContent = 'Error: ' + err.message;
+            }
+        });
+
+        // Login
+        loginForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const formData = new FormData(loginForm);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                const res = await fetch(`${apiBase}/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const json = await res.json();
+                responseBox.textContent = JSON.stringify(json, null, 2);
+
+                if (res.ok && json.token) {
+                    localStorage.setItem('token', json.token);
+                    alert('Logged in successfully. Token saved to localStorage.');
+                }
+            } catch (err) {
+                responseBox.textContent = 'Error: ' + err.message;
+            }
+        });
+
+        // Protected /me route
+        protectedForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const token = localStorage.getItem('token');
+            if (!token) {
+                protectedResponse.textContent = 'You must log in first.';
+                return;
+            }
+
+            try {
+                const res = await fetch(`${protectedBase}/me`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                const data = await res.json();
+                protectedResponse.textContent = JSON.stringify(data, null, 2);
+            } catch (err) {
+                protectedResponse.textContent = 'Fetch error: ' + err.message;
+            }
+        });
+
+        // Add transaction
+        transactionForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const token = localStorage.getItem('token');
+            if (!token) return alert('Please log in first');
+
+            const formData = new FormData(transactionForm);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                const res = await fetch(transactionsBase, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const json = await res.json();
+                transactionsOutput.textContent = JSON.stringify(json, null, 2);
+            } catch (err) {
+                transactionsOutput.textContent = 'Error: ' + err.message;
+            }
+        });
+
+        // Fetch all transactions
+        getTransactionsBtn.addEventListener('click', async function () {
+            const token = localStorage.getItem('token');
+            if (!token) return alert('Please log in first');
+
+            try {
+                const res = await fetch(transactionsBase, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                const json = await res.json();
+                transactionsOutput.textContent = JSON.stringify(json, null, 2);
+            } catch (err) {
+                transactionsOutput.textContent = 'Error: ' + err.message;
+            }
+        });
+
+        // Delete transaction by ID
+        deleteTransactionForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const token = localStorage.getItem('token');
+            if (!token) return alert('Please log in first');
+
+            const formData = new FormData(deleteTransactionForm);
+            const transactionId = formData.get('transactionId');
+
+            if (!confirm('Are you sure you want to delete this transaction?')) return;
+
+            try {
+                const res = await fetch(`${transactionsBase}/${transactionId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                const json = await res.json();
+                deleteResponse.textContent = JSON.stringify(json, null, 2);
+            } catch (err) {
+                deleteResponse.textContent = 'Error: ' + err.message;
+            }
+        });
+
+        //update transaction
+        editTransactionForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const token = localStorage.getItem('token');
+            if (!token) return alert('Please log in first');
+
+            const formData = new FormData(editTransactionForm);
+            const transactionId = formData.get('transactionId');
+
+            // Prepare the data, only include fields with values
+            const data = {};
+            ['amount', 'type', 'category', 'description', 'date'].forEach(field => {
+                const value = formData.get(field);
+                if (value) data[field] = value;
+            });
+
+            try {
+                const res = await fetch(`${transactionsBase}/${transactionId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const json = await res.json();
+                editResponse.textContent = JSON.stringify(json, null, 2);
+            } catch (err) {
+                editResponse.textContent = 'Error: ' + err.message;
+            }
+        });
+
+        // Initial fetch
+        fetchCategories();
+    </script>
+</body>
+
+</html>

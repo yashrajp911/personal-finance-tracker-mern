@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #f4f6f8;
+    margin: 0;
+    padding: 0;
+}
+
+.register-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.register-card {
+    background: white;
+    padding: 40px 32px;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 420px;
+    transition: 0.3s ease;
+}
+
+.register-card h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 600;
+    color: #333;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    position: relative;
+    margin-top: 10px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 10px 12px 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    background: transparent;
+    transition: all 0.2s;
+}
+
+.form-group label {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    padding: 0 4px;
+    color: #aaa;
+    font-size: 0.9rem;
+    pointer-events: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.form-group input:focus+label,
+.form-group input:not(:placeholder-shown)+label,
+.form-group input:not(:focus):valid+label {
+    top: -8px;
+    font-size: 0.75rem;
+    color: #007bff;
+}
+
+button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: #005fc3;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.error-list {
+    background: #ffe6e6;
+    color: #d8000c;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    list-style: disc inside;
+    margin: 0;
+}
+
+.error-text {
+    color: #d8000c;
+    font-size: 0.9rem;
+    margin: 0;
+    background: #ffe6e6;
+    padding: 10px 12px;
+    border-radius: 6px;
+}
+
+.switch-auth {
+    margin-top: 16px;
+    text-align: center;
+    font-size: 14px;
+    color: #333;
+}
+
+.switch-auth a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.switch-auth a:hover {
+    text-decoration: underline;
+}
+
+/* Common Mobile (up to 767px) */
+@media (max-width: 767px) {
+    .register-card {
+        padding: 20px;
+        max-width: 100%;
+    }
+
+    .form-group input {
+        font-size: 0.9rem;
+    }
+
+    button {
+        padding: 12px;
+        font-size: 0.9rem;
+    }
+
+    .register-card h2 {
+        font-size: 1.2rem;
+    }
+
+    .form {
+        gap: 15px;
+    }
+
+    .switch-auth {
+        font-size: 12px;
+    }
+}
+
+/* Tablet / Larger Mobile (up to 1024px) */
+@media (max-width: 1024px) {
+    .register-card {
+        padding: 30px;
+        max-width: 100%;
+    }
+
+    .form-group input {
+        font-size: 1rem;
+    }
+
+    button {
+        padding: 14px;
+        font-size: 1rem;
+    }
+
+    .register-card h2 {
+        font-size: 1.4rem;
+    }
+
+    .form {
+        gap: 18px;
+    }
+
+    .switch-auth {
+        font-size: 14px;
+    }
+}

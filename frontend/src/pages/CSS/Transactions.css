@@ -1,0 +1,192 @@
+/* Transactions.css */
+
+/* Table styles */
+.transaction-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.transaction-table th,
+.transaction-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.transaction-table th {
+    background-color: #4c51bf;
+    color: white;
+    font-weight: bold;
+}
+
+.transaction-table tr:nth-child(even) {
+    background-color: #f9fafb;
+}
+
+.transaction-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.transaction-table td {
+    color: #4a5568;
+}
+
+/* Income rows - green text and background */
+.transaction-table tr.income {
+    background-color: #e6f4f1;
+    color: #38a169;
+    /* Green color */
+}
+
+/* Expense rows - red text and background */
+.transaction-table tr.expense {
+    background-color: #fef2f2;
+    color: #e53e3e;
+    /* Red color */
+}
+
+.action-btn {
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+}
+
+.edit-btn {
+    background-color: #2b6cb0;
+    color: white;
+}
+
+.edit-btn:hover {
+    background-color: #3182ce;
+}
+
+.delete-btn {
+    background-color: #e53e3e;
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #f56565;
+}
+
+/* Modal styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    width: 400px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.modal input,
+.modal select,
+.modal textarea {
+    width: 100%;
+    padding: 8px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+.modal button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn {
+    background-color: #4c51bf;
+    color: white;
+}
+
+.submit-btn:hover {
+    background-color: #434190;
+}
+
+.cancel-btn {
+    background-color: #e53e3e;
+    color: white;
+    margin-top: 10px;
+}
+
+.cancel-btn:hover {
+    background-color: #f56565;
+}
+
+.search-input,
+.filter-select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    width: 200px;
+    margin-right: 15px;
+}
+
+/* Filters container */
+.filters {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* New styles for the Date filter */
+.date-filters {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+/* Date filter input fields */
+.date-filters input[type="date"] {
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 180px;
+    /* Matching width with other input fields */
+}
+
+/* Label for date filter inputs */
+.date-filters label {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #4a5568;
+    margin-right: 5px;
+}
+
+/* Date filters section */
+.date-filters {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}

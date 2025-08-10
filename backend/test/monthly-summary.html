@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Test API</title>
+</head>
+
+<body>
+    <button id="fetch-summary">Fetch Monthly Summary</button>
+    <pre id="result"></pre>
+
+    <script>
+        // Replace this with your actual JWT token
+        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OTgzOTczNDdmOTUxZDU4ZDQzZTA4YSIsImlhdCI6MTc1NDgwNzgyMiwiZXhwIjoxNzU3Mzk5ODIyfQ.LjGupFr2fXf-SJe4XslwiGT58aLVujlqCugFw4zXfS0';
+
+        document.getElementById('fetch-summary').addEventListener('click', () => {
+            fetch('http://localhost:5000/api/transactions/summary/monthly', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(err => {
+                    document.getElementById('result').textContent = 'Error: ' + err.message;
+                });
+        });
+    </script>
+</body>
+
+</html>

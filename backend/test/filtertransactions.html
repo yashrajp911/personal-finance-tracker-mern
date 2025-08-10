@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Filter Transactions</title>
+</head>
+
+<body>
+    <h1>Filter Transactions</h1>
+    <form id="filterForm">
+        <label>
+            Type:
+            <select name="type">
+                <option value="">-- All --</option>
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+            </select>
+        </label><br><br>
+
+        <label>
+            Category:
+            <input type="text" name="category" placeholder="e.g. Food" />
+        </label><br><br>
+
+        <label>
+            Start Date:
+            <input type="date" name="startDate" />
+        </label><br><br>
+
+        <label>
+            End Date:
+            <input type="date" name="endDate" />
+        </label><br><br>
+
+        <button type="submit">Filter</button>
+    </form>
+
+    <h2>Results</h2>
+    <pre id="results"></pre>
+
+    <script>
+        const form = document.getElementById('filterForm');
+        const results = document.getElementById('results');
+        const token = localStorage.getItem('token'); // Assuming token is saved like your category example
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+            const params = new URLSearchParams();
+
+            for (const [key, value] of formData.entries()) {
+                if (value) {
+                    params.append(key, value);
+                }
+            }
+
+            try {
+                const res = await fetch(`http://localhost:5000/api/transactions?${params.toString()}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (!res.ok) {
+                    const err = await res.json();
+                    results.textContent = 'Error: ' + (err.message || 'Failed to fetch transactions');
+                    return;
+                }
+
+                const data = await res.json();
+                results.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                results.textContent = 'Error: ' + error.message;
+            }
+        });
+    </script>
+</body>
+
+</html>

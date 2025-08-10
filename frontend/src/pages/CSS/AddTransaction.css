@@ -1,0 +1,188 @@
+.transaction-wrapper {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.transaction-form-card {
+    padding: 30px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.transaction-form h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    font-size: 16px;
+    color: #333;
+    display: block;
+    margin-bottom: 8px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #4caf50;
+}
+
+textarea {
+    min-height: 100px;
+}
+
+.submit-button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #45a049;
+}
+
+.error-text {
+    color: red;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+@media (max-width: 500px) {
+    .transaction-wrapper {
+        padding: 15px;
+        margin: 20px;
+    }
+
+    .transaction-form-card {
+        padding: 20px;
+    }
+
+    .transaction-form h2 {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    label {
+        font-size: 14px;
+    }
+
+    input,
+    select,
+    textarea {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .submit-button {
+        padding: 10px 18px;
+        font-size: 16px;
+    }
+
+    .error-text {
+        font-size: 14px;
+    }
+}
+
+/* Mobile (up to 767px) */
+@media (max-width: 767px) {
+    .transaction-wrapper {
+        padding: 18px;
+        margin: 25px;
+    }
+
+    .transaction-form-card {
+        padding: 25px;
+    }
+
+    .transaction-form h2 {
+        font-size: 22px;
+        margin-bottom: 18px;
+    }
+
+    label {
+        font-size: 15px;
+    }
+
+    input,
+    select,
+    textarea {
+        padding: 11px;
+        font-size: 15px;
+    }
+
+    .submit-button {
+        padding: 11px 18px;
+        font-size: 17px;
+    }
+
+    .error-text {
+        font-size: 15px;
+    }
+}
+
+/* Tablet / Larger Mobile (up to 1024px) */
+@media (max-width: 1024px) {
+    .transaction-wrapper {
+        padding: 20px;
+        margin: 30px;
+    }
+
+    .transaction-form-card {
+        padding: 28px;
+    }
+
+    .transaction-form h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-size: 16px;
+    }
+
+    input,
+    select,
+    textarea {
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    .submit-button {
+        padding: 12px 20px;
+        font-size: 18px;
+    }
+
+    .error-text {
+        font-size: 16px;
+    }
+}
