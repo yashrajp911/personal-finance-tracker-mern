@@ -206,13 +206,13 @@ docker-compose up --build
 
 ### Backend (Render)
 
-* URL: [https://personal-finance-tracker-backend-rss2.onrender.com](https://personal-finance-tracker-backend-rss2.onrender.com)
+* URL: [https://personal-finance-tracker-mern-backend.onrender.com/](https://personal-finance-tracker-mern-backend.onrender.com/)
 * Auto-deploys from GitHub
 * Environment variables managed via Render dashboard
 
 ### Frontend (Vercel)
 
-* URL: [https://personal-finance-tracker-frontend-flax.vercel.app/](https://personal-finance-tracker-frontend-flax.vercel.app/)
+* URL: [https://personal-finance-tracker-mern-frontend-eld7wclr5.vercel.app/](https://personal-finance-tracker-mern-frontend-eld7wclr5.vercel.app/)
 * Vercel handles CI/CD from GitHub repo
 * `.env` set via Vercel dashboard
 
