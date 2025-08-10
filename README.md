@@ -90,7 +90,7 @@ Use the following test accounts or register your own.
 
 | Email                                             | Password   | Notes                |
 | ------------------------------------------------- | ---------- | -------------------- |
-| [testuser1@gmail.com](mailto:testuser1@gmail.com) | Test\@1234 | General test account |
+| veloure77@gmail.com                               | Test123 | General test account |
 
 You can register new accounts via the frontend as well.
 
