@@ -4,215 +4,234 @@ A comprehensive **Personal Finance Tracker** built with the **MERN Stack** (Mong
 
 ---
 
-## Features
+## 🚀 Live Demo
 
-### **User Features:**
-
-#### **Authentication:**
-
-* User registration with email verification.
-* Secure login/logout using **JWT** (JSON Web Tokens).
-* Protected routes for authenticated users only.
-* Password validation and secure storage.
-
-#### **Income & Expense Management:**
-
-* Add, edit, and delete income/expense transactions.
-* Manage categories for transactions.
-* View transaction history with sorting and filtering options.
-
-#### **Analytics & Reporting:**
-
-* Monthly income/expense summaries.
-* Category-based spending breakdowns.
-* Filter data by custom date ranges.
-
-#### **Security & Privacy:**
-
-* Users can only access their own financial data.
-* Input validation and data protection against unauthorized access.
+- **Frontend**: [https://personal-finance-tracker-mern.vercel.app](https://personal-finance-tracker-mern.vercel.app)
+- **Backend**: [https://personal-finance-tracker-backend-rss2.onrender.com](https://personal-finance-tracker-backend-rss2.onrender.com)
 
 ---
 
-## Tech Stack
+## ✅ Features
 
-* **Frontend**: React.js, Context API/Redux (State management), React Router, Chart.js for data visualization
-* **Backend**: Node.js, Express.js
-* **Database**: MongoDB (using MongoDB Atlas for cloud database)
-* **Authentication**: JWT (JSON Web Tokens)
-* **Security**: bcrypt for password hashing
+### **Authentication**
+- User registration with email verification
+- Secure login/logout using **JWT**
+- Protected routes for authenticated users
+- Password validation and hashing with **bcrypt**
 
----
+### **Income & Expense Management**
+- Add, edit, and delete income/expense transactions
+- Create, edit, and manage custom categories
+- View full transaction history with filtering & sorting
 
-## Deployment:
+### **Analytics & Reporting**
+- Monthly income/expense summaries
+- Category-based spending visualizations (via **Chart.js**)
+- Filter transactions by custom date ranges
 
-* **Backend**: Heroku
-* **Frontend**: Netlify
-
----
-
-## Prerequisites
-
-Ensure you have the following installed before starting:
-
-* **Node.js** (LTS version)
-* **MongoDB Atlas** account (for database)
-* **Git**
-* **Heroku CLI** (if deploying on Heroku)
+### **Security**
+- Input validation to prevent unauthorized access
+- User-specific data isolation — users can only access their own data
 
 ---
 
-## Setup Instructions
+## 🧰 Tech Stack
 
-### 1. Clone the Repository:
+| Layer     | Tech Used |
+|-----------|-----------|
+| Frontend  | React (Vite), Context API, React Router, Chart.js |
+| Backend   | Node.js, Express.js |
+| Database  | MongoDB Atlas |
+| Auth      | JWT, bcrypt |
+| Deployment| Render (backend), Vercel (frontend) |
+
+---
+
+## 📁 Folder Structure
+
+```
+
+personal-finance-tracker-mern/
+├── backend/
+│   ├── models/
+│   ├── routes/
+│   ├── controllers/
+│   └── seed.js
+├── frontend/
+│   ├── src/
+│   └── .env
+├── docker-compose.yml
+├── README.md
+
+````
+
+---
+
+## ⚙️ Environment Variables
+
+### Backend (`/backend/.env`)
+```env
+PORT=5000
+MONGO_URI=your_mongodb_uri
+JWT_SECRET=your_jwt_secret
+EMAIL_USER=your_email@example.com
+EMAIL_PASS=your_email_password_or_app_password
+EMAIL_HOST=smtp.sendgrid.net
+EMAIL_PORT=587
+CLIENT_URL=http://localhost:5173
+````
+
+### Frontend (`/frontend/.env`)
+
+```env
+REACT_APP_BACKEND_URL=https://personal-finance-tracker-backend-rss2.onrender.com
+```
+
+---
+
+## 🧪 Sample Users (For Demo)
+
+Use the following test accounts or register your own.
+
+| Email                                             | Password   | Notes                |
+| ------------------------------------------------- | ---------- | -------------------- |
+| [testuser1@gmail.com](mailto:testuser1@gmail.com) | Test\@1234 | General test account |
+| [testuser2@gmail.com](mailto:testuser2@gmail.com) | Test\@5678 | Alternate profile    |
+
+You can register new accounts via the frontend as well.
+
+---
+
+## 🏁 Getting Started Locally
+
+### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/personal-finance-tracker-mern.git
+git clone https://github.com/yashrajp911/personal-finance-tracker-mern.git
 cd personal-finance-tracker-mern
 ```
 
-### 2. Install Dependencies:
-
-**Backend**: Navigate to the backend folder and install dependencies:
+### 2. Install Dependencies
 
 ```bash
-cd backend
-npm install
+cd backend && npm install
+cd ../frontend && npm install
 ```
 
-**Frontend**: Navigate to the frontend folder and install dependencies:
+### 3. Configure Environment Variables
 
-```bash
-cd frontend
-npm install
-```
+Create `.env` files in both `backend/` and `frontend/` as shown above.
 
-### 3. Set Environment Variables:
+### 4. Start the Application Locally
 
-Create a `.env` file in the **backend** folder and add the following variables:
-
-```ini
-MONGO_URI=your-mongo-db-uri
-JWT_SECRET=your-jwt-secret
-PORT=5000
-```
-
-You can get your **MongoDB URI** from [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
-
-### 4. Start the Project Locally:
-
-**Backend:**
+#### Backend
 
 ```bash
 cd backend
 npm start
 ```
 
-The backend will run at `http://localhost:5000`.
-
-**Frontend:**
+#### Frontend
 
 ```bash
 cd frontend
-npm start
+npm run dev
 ```
 
-The frontend will run at `http://localhost:5173`.
+* Frontend runs at: `http://localhost:5173`
+* Backend runs at: `http://localhost:5000`
 
-### 5. Optional: Run Seed Script for Demo Data:
+---
 
-To populate the database with demo data (for testing), run the following script in the backend:
+## 🌱 Seed Script (Demo Data)
+
+To populate the database with test data:
 
 ```bash
+cd backend
 node seed.js
 ```
 
----
+This adds:
 
-## API Endpoints
-
-### **Authentication Routes:**
-
-* **POST** `/api/auth/register`: Register a new user.
-* **POST** `/api/auth/login`: Log in and get a JWT token.
-
-### **Transaction Routes:**
-
-* **GET** `/api/transactions`: Get all transactions for the authenticated user.
-* **POST** `/api/transactions`: Create a new transaction.
-* **PUT** `/api/transactions/:id`: Edit an existing transaction.
-* **DELETE** `/api/transactions/:id`: Delete a transaction.
-
-### **Category Routes:**
-
-* **GET** `/api/categories`: Get all categories for the authenticated user.
-* **POST** `/api/categories`: Create a new category.
-* **PUT** `/api/categories/:id`: Update a category.
-* **DELETE** `/api/categories/:id`: Delete a category.
+* Common categories (e.g., Food, Transport, Salary)
+* Sample income and expense transactions
+* Associated with sample users (or the one currently logged in)
 
 ---
 
-## Deployment
+## 🔌 API Endpoints (Backend)
 
-### 1. **Backend Deployment (Heroku):**
+### **Authentication**
 
-To deploy the backend on Heroku:
+* `POST /api/auth/register` — Register user
+* `POST /api/auth/login` — Login and receive JWT
 
-* Create a Heroku app:
+### **Transactions**
+
+* `GET /api/transactions` — List all user transactions
+* `POST /api/transactions` — Create new transaction
+* `PUT /api/transactions/:id` — Update transaction
+* `DELETE /api/transactions/:id` — Delete transaction
+
+### **Categories**
+
+* `GET /api/categories` — List user’s categories
+* `POST /api/categories` — Create category
+* `PUT /api/categories/:id` — Update category
+* `DELETE /api/categories/:id` — Delete category
+
+All routes require a valid token (JWT) in headers unless otherwise noted.
+
+---
+
+## 🐳 Docker Support
+
+Docker is supported for local backend development.
+
+### Files Included:
+
+* `backend/Dockerfile`
+* `frontend/Dockerfile` *(optional, not used in compose)*
+* `docker-compose.yml`
+
+### Run Backend + MongoDB
 
 ```bash
-heroku create your-app-name
+docker-compose up --build
 ```
 
-* Push your code to Heroku:
+* MongoDB runs on port `27017`
+* Backend runs on port `5000`
 
-```bash
-git push heroku master
-```
-
-* Set your environment variables in the Heroku dashboard.
-
-The backend will be available at: `https://your-app-name.herokuapp.com`.
-
-### 2. **Frontend Deployment (Netlify):**
-
-To deploy the frontend on Netlify:
-
-* Create a Netlify account and log in.
-* Link your GitHub repository to Netlify and choose the frontend folder for deployment.
-
-Netlify will handle the deployment process and provide a live URL.
-
-The frontend will be available at: `https://your-react-app-name.netlify.app`.
+> Frontend not included in Compose — run it separately using `npm run dev` or deploy via Vercel.
 
 ---
 
-## Sample Data (Seed Script)
+## ☁️ Deployment
 
-The **seed.js** script allows you to populate your database with some initial data for testing. Run it after setting up the backend:
+### Backend (Render)
 
-```bash
-node seed.js
-```
+* URL: [https://personal-finance-tracker-backend-rss2.onrender.com](https://personal-finance-tracker-backend-rss2.onrender.com)
+* Auto-deploys from GitHub
+* Environment variables managed via Render dashboard
 
-This will populate the database with some sample categories and transactions, so you can test the functionality right away.
+### Frontend (Vercel)
 
----
-
-## Contributing
-
-Feel free to open issues and submit pull requests. Contributions are welcome!
+* URL: [https://personal-finance-tracker-frontend-flax.vercel.app/](https://personal-finance-tracker-frontend-flax.vercel.app/)
+* Vercel handles CI/CD from GitHub repo
+* `.env` set via Vercel dashboard
 
 ---
 
-## License
+## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.
 
 ---
 
-### Notes:
+## 🤝 Contributing
 
-* Replace placeholders like `yourusername` and `your-react-app-name` with your actual details.
-* The **Seed Script** is optional but very useful for testing.
+Contributions are welcome! Feel free to fork this repo and submit a pull request with improvements.
 
+---
