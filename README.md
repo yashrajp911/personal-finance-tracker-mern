@@ -6,7 +6,7 @@ A comprehensive **Personal Finance Tracker** built with the **MERN Stack** (Mong
 
 ## 🚀 Live Demo
 
-- **Frontend**: [https://personal-finance-tracker-mern.vercel.app/](https://personal-finance-tracker-mern.vercel.app/)
+- **Frontend**: [https://personal-finance-tracker-frontend-flax.vercel.app/](https://personal-finance-tracker-frontend-flax.vercel.app/)
 - **Backend**: [https://personal-finance-tracker-backend-rss2.onrender.com](https://personal-finance-tracker-backend-rss2.onrender.com)
 
 ---
